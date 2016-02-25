@@ -439,12 +439,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 
 # Property triggers begin here
 
-on property:init.svc.bootanim=stopped
-    # Allow QMUX daemon to assign port open wait time
-    chown radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
-    # Init modem
-    write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
-
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
@@ -454,6 +448,14 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 1
 
 on property:sys.boot_completed=1
+
+    #SFOS modem activation
+
+    # Init modem
+    write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
+    # Allow QMUX daemon to assign port open wait time
+    chown radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
     # Set up power modes
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
     write /sys/module/rpm_resources/enable_low_power/pxo 1
