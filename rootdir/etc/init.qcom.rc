@@ -454,7 +454,7 @@ on property:sys.boot_completed=1
     # Init modem
     write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
     # Allow QMUX daemon to assign port open wait time
-    chown radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
     # Set up power modes
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
